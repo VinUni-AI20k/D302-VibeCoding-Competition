@@ -1,7 +1,4 @@
-"""Kiểu dữ liệu lõi của bài toán SwiftRoute.
-
-Module này KHÔNG chứa bất kỳ hằng số nào của hàm chi phí. Nó được ship cho thí sinh.
-"""
+"""Kiểu dữ liệu lõi: một đơn hàng, và một instance của bài toán."""
 
 from __future__ import annotations
 

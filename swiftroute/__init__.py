@@ -1,11 +1,12 @@
-"""SwiftRoute — Last-Mile Delivery Challenge.
+"""SwiftRoute — thư viện đọc đề bài và đo lời giải.
 
-Ranh giới quan trọng nhất của package này:
+    from swiftroute.io_csv import read_instances
+    from swiftroute.metrics import evaluate
 
-    ship được cho thí sinh   : model, metrics, io_csv, io_submission
-    chỉ ban tổ chức          : weights, cost, scoring, generator, solvers
+    for inst in read_instances("data/sample_orders.csv"):
+        stats = evaluate(inst, [[3, 9, 4], [7, 1]])
 
-Đừng import nhóm thứ hai từ nhóm thứ nhất. tests/test_no_leak.py canh điều đó.
+Xem GUIDE.md để có ví dụ đầy đủ.
 """
 
 from .metrics import Stats, evaluate

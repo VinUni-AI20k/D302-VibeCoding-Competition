@@ -1,8 +1,8 @@
-"""Đo lường thuần tuý một lời giải: khả thi hay không, và các đại lượng thô.
+"""Mô phỏng một lời giải và đo nó.
 
-QUAN TRỌNG — module này được ship cho thí sinh.
-Nó KHÔNG được chứa bất kỳ trọng số chi phí nào. Việc quy đổi các đại lượng thô sang
-tiền nằm ở ``swiftroute.cost``, module đó không bao giờ rời khỏi máy ban tổ chức.
+``evaluate(instance, routes)`` chạy đúng bộ mô phỏng dùng khi chấm bài: kiểm tra các
+ràng buộc cứng, rồi đo quãng đường, số xe, mức trễ hẹn, thời gian ngoài ca, và các đơn
+không được giao.
 """
 
 from __future__ import annotations
@@ -28,7 +28,7 @@ class RouteTrace:
 
 @dataclass
 class Stats:
-    """Các đại lượng thô của một lời giải. Không có tiền, không có điểm."""
+    """Các đại lượng đo được của một lời giải."""
 
     instance_id: str
     feasible: bool
@@ -72,7 +72,7 @@ class Stats:
         return sum(1 for v in self.overtime_per_route if v > 1e-9)
 
     def public_summary(self) -> dict[str, float | int | bool]:
-        """Đúng những gì thí sinh được phép nhìn thấy."""
+        """Bản tóm tắt gọn, dùng để in ra màn hình."""
         return {
             "feasible": self.feasible,
             "total_distance_km": round(self.total_distance, 3),
@@ -114,8 +114,8 @@ def check_hard_constraints(instance: Instance, routes: Routes) -> list[str]:
     if duplicates:
         violations.append(f"order_id bị lặp: {sorted(set(duplicates))[:10]}")
 
-    # Đánh số theo vị trí trong file thí sinh nộp, không theo danh sách đã lọc tuyến rỗng
-    # — người đọc thông báo lỗi đang nhìn vào file của chính họ.
+    # Đánh số theo vị trí trong file nộp, không theo danh sách đã lọc tuyến rỗng — người
+    # đọc thông báo lỗi đang nhìn vào file của chính mình.
     for i, route in enumerate(routes):
         if not route:
             continue

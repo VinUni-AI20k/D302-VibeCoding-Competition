@@ -1,10 +1,8 @@
-"""Đọc file JSON thí sinh nộp.
+"""Đọc và ghi file JSON nộp bài.
 
-Nguyên tắc: **khoan dung về cú pháp, nghiêm ngặt về ngữ nghĩa**. Sinh viên sẽ nộp đủ
-kiểu biến thể; ta chấp nhận hết những gì hiểu được không mập mờ, rồi để tầng đánh giá
-bắt lỗi thật sự (id lạ, trùng, quá tải).
-
-Module này được ship cho thí sinh.
+Trình đọc khoan dung với các biến thể định dạng hay gặp — order_id viết dạng chuỗi,
+lồng thêm một tầng ``routes``, thiếu khoá ``team`` — nhưng không tha lỗi cú pháp JSON.
+Chi tiết ở DATA_FORMAT.md.
 """
 
 from __future__ import annotations

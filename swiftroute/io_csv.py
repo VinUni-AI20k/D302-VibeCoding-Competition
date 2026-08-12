@@ -2,8 +2,6 @@
 
 Mỗi dòng là một đơn hàng; các cột tham số của instance lặp lại trên mọi dòng thuộc
 instance đó. Dư thừa nhưng đọc bằng pandas là xong một dòng lệnh.
-
-Module này được ship cho thí sinh.
 """
 
 from __future__ import annotations
