@@ -27,7 +27,7 @@ Ban tổ chức sẽ chốt giờ cụ thể trên Discord vào đầu buổi.
 
 - Dùng bất kỳ thư viện, solver, hay AI coding assistant nào.
 - Chạy code bao lâu tuỳ thích trong khoảng thời gian được cho.
-- Nộp nhiều lần lên bảng public để suy ra hàm chi phí.
+- Nộp lại bao nhiêu lần tuỳ ý trong vòng public.
 - Đọc mã nguồn trong gói được phát.
 
 **Không được:**
@@ -56,5 +56,3 @@ Hệ quả:
 
 Có thắc mắc về điểm thì nhắn trên Discord kèm tên đội. Ban tổ chức giữ điểm chi tiết
 từng instance và lý do bị 0 điểm của mọi bài nộp.
-
-Hàm chi phí sẽ được công bố đầy đủ sau khi kết thúc.

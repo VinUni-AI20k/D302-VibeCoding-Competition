@@ -1,19 +1,15 @@
 # SwiftRoute — Cuộc thi tối ưu giao hàng
 
 Bạn có một kho hàng, một đội xe tải, và vài trăm đơn cần giao trong ngày. Việc của bạn:
-viết code quyết định **xe nào đi đâu, theo thứ tự nào**, sao cho tổng chi phí vận hành
+viết code quyết định **xe nào đi đâu, theo thứ tự nào**, sao cho **tổng chi phí vận hành**
 thấp nhất.
 
-Có một điểm khác thường, và nó là linh hồn của cuộc thi:
+Chi phí vận hành liên quan tới năm thứ: tổng quãng đường các xe chạy, số xe phải huy
+động, mức độ trễ hẹn với khách, thời gian tài xế làm ngoài ca, và những đơn cuối cùng
+không giao được.
 
-> **Chúng tôi không nói cho bạn biết chi phí được tính thế nào.**
->
-> Bạn sẽ biết chính xác *năm đại lượng nào* bị đo. Bạn sẽ **không** biết mỗi đại lượng
-> đáng giá bao nhiêu.
-
-Ngoài đời cũng vậy thôi — hiếm khi có ai đưa cho bạn sẵn hàm mục tiêu. Bạn phải suy ra
-nó từ chỗ tổ chức thưởng và phạt. Ở đây, **đoán được hàm chi phí là một phần của bài
-thi**, quan trọng ngang việc viết thuật toán giỏi.
+Bạn sẽ không tìm được lời giải tối ưu — bài toán này không ai giải tối ưu được ở quy mô
+đó. Mục tiêu là **tốt hơn các đội khác**.
 
 ## Bắt đầu trong 2 phút
 
@@ -35,7 +31,7 @@ minh đường ống thông suốt.
 | File | Nội dung |
 |---|---|
 | **[GUIDE.md](GUIDE.md)** | **Bắt đầu ở đây.** Hướng dẫn từng bước, có code cụ thể |
-| [PROBLEM.md](PROBLEM.md) | Đề bài chính thức. Luật cứng, luật mềm, phần bị giấu |
+| [PROBLEM.md](PROBLEM.md) | Đề bài chính thức. Luật cứng, luật mềm, chi phí vận hành |
 | [DATA_FORMAT.md](DATA_FORMAT.md) | Định dạng CSV đề bài và JSON nộp bài |
 | [SCORING.md](SCORING.md) | Cách tính điểm |
 | [RULES.md](RULES.md) | Thể lệ, mốc thời gian, cách nộp |
@@ -65,7 +61,7 @@ phạt, nhưng hợp lệ — và đôi khi là lựa chọn đúng. Rất nhi�
 **Có năm thứ bị đo, không phải một.** Tổng quãng đường, số xe dùng, mức trễ hẹn, thời
 gian làm ngoài ca, và các đơn bị bỏ. Chỉ tối ưu quãng đường là thua.
 
-**`validate.py` không cho bạn điểm.** Nó cho bạn năm đại lượng thô. Biến chúng thành một
-con số chi phí là việc của bạn — và đó chính là bài toán.
+**Chờ cũng mất thời gian.** Ghé một khách sớm hơn `ready_time` thì xe phải đứng đợi, và
+mọi khách phía sau trong tuyến bị đẩy lùi theo.
 
 Chúc vui. Bắt đầu ở [GUIDE.md](GUIDE.md).

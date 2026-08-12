@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""Kiểm tra file nộp. CÔNG CỤ NÀY ĐƯỢC GIAO CHO THÍ SINH.
+"""Kiểm tra file nộp trước khi gửi lên Discord.
 
-Nó cho biết lời giải của bạn có HỢP LỆ không, và các đại lượng thô mà ban tổ chức đo.
-Nó KHÔNG cho biết điểm, và cũng không cho biết mỗi đại lượng đáng giá bao nhiêu — phần
-đó là bài toán của bạn.
+Nó cho biết lời giải của bạn có hợp lệ không, và lời giải đó đang ở mức nào trên các
+đại lượng cấu thành chi phí vận hành.
 
 Chạy:
     python validate.py --orders data/sample_orders.csv --submission TEN_DOI.json
@@ -99,7 +98,6 @@ def main() -> int:
         print(f"{problems} instance có vấn đề — sửa trước khi nộp.")
     else:
         print("Tất cả instance đều hợp lệ.")
-    print("\nCông cụ này không tính điểm. Điểm chỉ có trên bảng xếp hạng.")
     return 1 if problems else 0
 
 

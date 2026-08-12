@@ -15,7 +15,7 @@ Cần Python 3.10 trở lên. Không cần cài gì thêm — gói này chỉ d�
 GUIDE.md                  hướng dẫn từng bước. Đọc trước.
 PROBLEM.md                đề bài chính thức
 DATA_FORMAT.md            định dạng CSV và JSON
-SCORING.md                cách chấm điểm, và những gì không được công bố
+SCORING.md                cách chấm điểm
 RULES.md                  thể lệ và mốc thời gian
 validate.py               kiểm tra lời giải, in các đại lượng thô
 starter/solver_starter.py lời giải mẫu ngây thơ
@@ -53,29 +53,28 @@ stats.routes[0].arrivals       # thời điểm đến từng điểm, để deb
 ```
 
 `evaluate` chạy đúng bộ mô phỏng mà ban tổ chức dùng. Bạn có thể gọi nó bao nhiêu lần
-tuỳ ý trong vòng lặp tìm kiếm của mình. Nó **không** trả về chi phí — quy đổi các đại
-lượng này thành một con số là việc của bạn.
+tuỳ ý trong vòng lặp tìm kiếm của mình. Nó trả về các đại lượng thô; quy đổi chúng thành
+một con số chi phí để so sánh hai lời giải là việc của bạn.
 
 ## Đường đi gợi ý
 
 1. Cho chạy được vòng lặp: đọc CSV → sinh lời giải hợp lệ → ghi JSON → validate.
-2. Viết một hàm chi phí **của riêng bạn**, đoán các trọng số. Đây là mô hình của bạn về
-   `f`, và mọi thứ về sau phụ thuộc vào nó.
+2. Viết một hàm chi phí **của riêng bạn**, tự chọn trọng số cho năm đại lượng. Mọi bước
+   sau đều tối ưu theo hàm này, nên nó quyết định rất nhiều.
 3. Xây dựng lời giải khởi đầu tử tế: chèn theo hối tiếc thường tốt hơn nhiều so với
    chèn tham lam thuần.
 4. Cải thiện cục bộ: dời đơn giữa các tuyến, đổi chỗ, đảo đoạn trong tuyến.
 5. Thoát cực trị địa phương: phá rồi sửa lại (large neighbourhood search), hoặc luyện
    kim mô phỏng.
-6. Hiệu chỉnh giả định về trọng số bằng bảng xếp hạng public. Nhớ rằng bộ public không
-   nói gì cho bạn về ba trong năm thành phần.
+6. Hiệu chỉnh trọng số của mình dựa trên bảng xếp hạng public.
 
-Bước 2 là bước phân loại các đội. Đừng bỏ qua nó để nhảy thẳng vào bước 5.
+Bước 2 quyết định phần lớn kết quả. Đừng bỏ qua nó để nhảy thẳng vào bước 5.
 
 ## Sai lầm hay gặp
 
 - **Quên `ready_time`.** Đến sớm không phải là đến đúng giờ; xe phải đứng chờ, và thời
   gian chờ đẩy mọi điểm phía sau trong tuyến trễ theo.
-- **Tối ưu quãng đường và chỉ quãng đường.** Có tới năm đại lượng bị đo.
+- **Tối ưu quãng đường và chỉ quãng đường.** Chi phí vận hành gồm tới năm đại lượng.
 - **Cho rằng phải giao hết đơn.** Không phải. Đôi khi bỏ là đúng.
 - **Cho rằng bỏ đơn luôn tệ.** Cũng không phải. Nó là một đánh đổi.
 - **Không đặt ngân sách thời gian.** Vòng private chỉ có 45 phút cho 20 instance.

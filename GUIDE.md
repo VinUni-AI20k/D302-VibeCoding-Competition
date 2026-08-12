@@ -44,7 +44,7 @@ sample_01: hợp lệ
     ...
 ```
 
-Đó là toàn bộ những gì bạn được nhìn thấy. Không có điểm. Không có chi phí. **Cố ý đấy.**
+`validate.py` cho bạn các đại lượng thô của lời giải. Điểm số thì đến từ bảng xếp hạng.
 
 ---
 
@@ -197,21 +197,20 @@ stats.routes[0].arrivals    # giờ đến từng điểm, rất hữu ích khi 
 
 ---
 
-## Bước 5 — Đây mới là bài toán thật
+## Bước 5 — Hàm chi phí của riêng bạn
 
-Bạn đã có lời giải hợp lệ. Giờ phải làm nó **rẻ**. Nhưng "rẻ" nghĩa là gì?
+Bạn đã có lời giải hợp lệ. Giờ phải làm nó **rẻ**. Muốn tối ưu thì trước hết phải có một
+con số duy nhất để so hai lời giải với nhau — nếu không thì không biết đường nào mà lần.
 
-Chi phí là một hàm **tăng** theo đúng năm đại lượng này:
+Chi phí vận hành liên quan tới năm đại lượng:
 
 1. tổng quãng đường
-2. số xe sử dụng
+2. số xe huy động
 3. mức độ trễ hẹn
 4. thời gian làm ngoài ca
 5. các đơn bị bỏ (có tính khối lượng)
 
-Không có gì ngoài năm cái này. Không cái nào bị bỏ qua. **Trọng số thì không công bố.**
-
-Nên việc đầu tiên bạn cần làm là **tự viết hàm chi phí của riêng mình**:
+Nên việc đầu tiên cần làm là **tự viết hàm chi phí của riêng mình**:
 
 ```python
 def my_cost(inst, routes):
@@ -231,23 +230,19 @@ def my_cost(inst, routes):
 `A B C D E` là **giả thuyết của bạn**. Mọi thứ về sau đều dựa lên chúng. Đoán sai thì
 thuật toán dù giỏi đến đâu cũng đang leo nhầm ngọn núi.
 
-Vài câu để tự hỏi:
+Vài câu đáng dừng lại suy nghĩ, vì mỗi câu đổi hẳn hình dạng lời giải tốt:
 
-- Một chiếc xe thêm vào đáng giá bao nhiêu **km**? 10 km? 100 km? Con số này thay đổi
-  hoàn toàn hình dạng lời giải tốt.
+- Một chiếc xe huy động thêm đáng giá bao nhiêu **km**? 10 km? 100 km?
 - Trễ 200 phút có tệ đúng bằng **hai lần** trễ 100 phút không? Hay tệ hơn thế nhiều?
 - Bỏ một đơn đắt hơn hay rẻ hơn việc chạy hẳn một chuyến riêng cho nó?
 - Đơn nặng bị bỏ có tệ hơn đơn nhẹ bị bỏ không?
 
-Bạn có hai nguồn thông tin để trả lời:
+Hai nguồn phản hồi bạn có:
 
-- **`validate.py`** cho bạn năm đại lượng đo được. Không cho giá.
-- **Bảng xếp hạng** cho bạn một con số điểm sau mỗi đợt chấm. Bạn được phép nộp nhiều
-  lần và quan sát điểm nhúc nhích ra sao. Việc này hoàn toàn hợp lệ và được khuyến khích.
-
-Một cảnh báo thật lòng: **bộ public không kích hoạt cả năm thành phần.** Sẽ có thành
-phần luôn bằng 0 trên bộ public. Đừng kết luận nó không quan trọng — bộ private thì kích
-hoạt hết, và mạnh.
+- **`validate.py`** cho bạn năm đại lượng đo được trên lời giải hiện tại.
+- **Bảng xếp hạng** cho bạn một con số điểm sau mỗi đợt chấm. Trong vòng public bạn được
+  nộp lại bao nhiêu lần tuỳ ý, nên hãy dùng nó để kiểm chứng xem thay đổi của mình có
+  thật sự tốt lên hay không.
 
 ---
 
@@ -346,7 +341,7 @@ Nghĩa là:
 | Chỉ tối ưu quãng đường | Bỏ qua bốn trong năm thứ bị đo |
 | Cố giao bằng được mọi đơn | Thua các đội biết bỏ đúng đơn cần bỏ |
 | Cho rằng bỏ đơn luôn tệ | Cũng sai. Nó là một đánh đổi |
-| Cho rằng phạt trễ là tuyến tính | Hãy tự hỏi lại. Đề chỉ hứa hàm **tăng**, không hứa tuyến tính |
+| Cho rằng phạt trễ là tuyến tính | Một cú trễ rất nặng và nhiều cú trễ nhẹ chưa chắc đã như nhau |
 | Đưa `order_id` của kho vào tuyến | Kho không phải một đơn hàng |
 | Nộp thiếu instance | Bài thiếu bị 0 điểm |
 | Không đặt ngân sách thời gian | Vòng private chỉ có 45 phút cho 20 bài |
@@ -356,7 +351,5 @@ Nghĩa là:
 
 ## Cần trợ giúp
 
-Hỏi trên kênh Discord của cuộc thi. Ban tổ chức trả lời được câu hỏi về **luật chơi** và
+Hỏi trên kênh Discord của cuộc thi. Ban tổ chức trả lời các câu hỏi về **luật chơi** và
 **định dạng file**.
-
-Câu hỏi về trọng số chi phí thì không — đó là bài thi.

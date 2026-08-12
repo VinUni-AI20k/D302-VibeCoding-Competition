@@ -78,32 +78,20 @@ Những điều này **không** làm lời giải mất hiệu lực. Chúng là
 
 ## Bạn đang tối ưu cái gì
 
-Đây là phần quan trọng nhất của đề bài, nên đọc kỹ.
+Mục tiêu là **tổng chi phí vận hành** của cả ngày.
 
-Tổng chi phí vận hành là một hàm **tăng** theo đúng năm đại lượng sau:
+Chi phí vận hành liên quan tới năm đại lượng:
 
 1. Tổng quãng đường của tất cả các xe.
-2. Số xe được sử dụng, tức số tuyến không rỗng.
+2. Số xe được huy động, tức số tuyến không rỗng.
 3. Mức độ trễ hẹn của các đơn đã giao.
-4. Thời gian làm ngoài ca, tính trên các xe về kho sau `shift_end`.
+4. Thời gian làm ngoài ca của những xe về kho sau `shift_end`.
 5. Các đơn bị bỏ, có tính đến khối lượng của chúng.
 
-**Trọng số của từng thành phần và dạng hàm không được công bố.** Không có thành phần nào
-ngoài năm cái trên. Không có thành phần nào trong năm cái trên bị bỏ qua.
+Đại lượng nào trong năm cái đó tăng lên thì chi phí tăng theo.
 
-Đây là cố ý. Trong công việc thật, hiếm khi ai đưa cho bạn hàm mục tiêu — bạn phải suy ra
-nó từ những gì tổ chức thưởng và phạt. Ở đây cũng vậy: **suy ra hàm chi phí là một phần
-của bài thi**, ngang hàng với việc viết heuristic tốt.
-
-Bạn có hai nguồn thông tin:
-
-- `validate.py` cho bạn biết năm đại lượng trên đo được bao nhiêu ở lời giải của bạn.
-  Nó **không** cho bạn biết mỗi đại lượng đáng giá bao nhiêu.
-- Bảng xếp hạng public cho bạn một con số điểm. Nộp nhiều lần với các lời giải khác nhau
-  và quan sát điểm thay đổi ra sao là hoàn toàn hợp lệ, và được khuyến khích.
-
-Một cảnh báo thẳng thắn: các instance public **không** kích hoạt cả năm thành phần. Đừng
-kết luận rằng thành phần nào đó không quan trọng chỉ vì nó bằng 0 trên bộ public.
+`validate.py` cho bạn biết lời giải của mình đang ở mức nào trên cả năm đại lượng. Bảng
+xếp hạng cho bạn điểm số. Trong vòng public bạn được nộp lại bao nhiêu lần tuỳ ý.
 
 ## Chấm điểm
 
