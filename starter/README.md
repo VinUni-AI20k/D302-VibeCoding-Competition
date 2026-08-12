@@ -1,0 +1,82 @@
+# Bắt đầu
+
+## Kiểm tra vòng lặp chạy được
+
+```bash
+python starter/solver_starter.py --orders data/sample_orders.csv --out TEN_DOI.json --team TEN_DOI
+python validate.py --orders data/sample_orders.csv --submission TEN_DOI.json
+```
+
+Cần Python 3.10 trở lên. Không cần cài gì thêm — gói này chỉ dùng thư viện chuẩn.
+
+## Bên trong gói có gì
+
+```
+GUIDE.md                  hướng dẫn từng bước. Đọc trước.
+PROBLEM.md                đề bài chính thức
+DATA_FORMAT.md            định dạng CSV và JSON
+SCORING.md                cách chấm điểm, và những gì không được công bố
+RULES.md                  thể lệ và mốc thời gian
+validate.py               kiểm tra lời giải, in các đại lượng thô
+starter/solver_starter.py lời giải mẫu ngây thơ
+swiftroute/               thư viện đọc đề và đo lời giải
+data/sample_orders.csv    3 bài nhỏ để chạy thử
+```
+
+## Những gì thư viện cho sẵn
+
+```python
+from swiftroute.io_csv import read_instances
+from swiftroute.io_submission import write_submission
+from swiftroute.metrics import evaluate
+
+instances = read_instances("data/sample_orders.csv")
+inst = instances[0]
+
+inst.num_vehicles, inst.vehicle_capacity, inst.speed
+inst.shift_start, inst.shift_end
+inst.orders                    # tuple các Order
+inst.order(7)                  # tra theo order_id
+inst.dist(3, 9)                # khoảng cách giữa hai đơn
+inst.dist_depot(3)             # khoảng cách từ kho
+inst.travel_time(km)           # đổi km sang phút
+
+stats = evaluate(inst, [[3, 9, 4], [7, 1]])
+stats.feasible                 # có vi phạm luật cứng không
+stats.violations               # nếu có thì vi phạm gì
+stats.total_distance
+stats.vehicles_used
+stats.unserved_ids
+stats.lateness_per_order       # phút trễ của từng đơn đã giao
+stats.overtime_per_route
+stats.routes[0].arrivals       # thời điểm đến từng điểm, để debug
+```
+
+`evaluate` chạy đúng bộ mô phỏng mà ban tổ chức dùng. Bạn có thể gọi nó bao nhiêu lần
+tuỳ ý trong vòng lặp tìm kiếm của mình. Nó **không** trả về chi phí — quy đổi các đại
+lượng này thành một con số là việc của bạn.
+
+## Đường đi gợi ý
+
+1. Cho chạy được vòng lặp: đọc CSV → sinh lời giải hợp lệ → ghi JSON → validate.
+2. Viết một hàm chi phí **của riêng bạn**, đoán các trọng số. Đây là mô hình của bạn về
+   `f`, và mọi thứ về sau phụ thuộc vào nó.
+3. Xây dựng lời giải khởi đầu tử tế: chèn theo hối tiếc thường tốt hơn nhiều so với
+   chèn tham lam thuần.
+4. Cải thiện cục bộ: dời đơn giữa các tuyến, đổi chỗ, đảo đoạn trong tuyến.
+5. Thoát cực trị địa phương: phá rồi sửa lại (large neighbourhood search), hoặc luyện
+   kim mô phỏng.
+6. Hiệu chỉnh giả định về trọng số bằng bảng xếp hạng public. Nhớ rằng bộ public không
+   nói gì cho bạn về ba trong năm thành phần.
+
+Bước 2 là bước phân loại các đội. Đừng bỏ qua nó để nhảy thẳng vào bước 5.
+
+## Sai lầm hay gặp
+
+- **Quên `ready_time`.** Đến sớm không phải là đến đúng giờ; xe phải đứng chờ, và thời
+  gian chờ đẩy mọi điểm phía sau trong tuyến trễ theo.
+- **Tối ưu quãng đường và chỉ quãng đường.** Có tới năm đại lượng bị đo.
+- **Cho rằng phải giao hết đơn.** Không phải. Đôi khi bỏ là đúng.
+- **Cho rằng bỏ đơn luôn tệ.** Cũng không phải. Nó là một đánh đổi.
+- **Không đặt ngân sách thời gian.** Vòng private chỉ có 45 phút cho 20 instance.
+- **Chỉ chạy validate ở phút cuối.** Chạy ngay từ đầu, và chạy thường xuyên.
